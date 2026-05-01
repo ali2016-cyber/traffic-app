@@ -1,0 +1,20 @@
+{
+  
+  "appId": "com.your.app",
+  "appName": "Traffic App",
+  "webDir": "src",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "http",
+    "allowNavigation": ["192.168.64.245:3000"]
+  
+},
+  
+  
+ 
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": false
+    }
+  }
+}
