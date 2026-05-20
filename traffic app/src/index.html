@@ -166,7 +166,7 @@
       });
       // safe 100m → cache uniquement le badge rouge
       // le badge 5km continue à s'afficher si toujours dans 5km
-      socket.on('safe', () => {
+      socket.on('safe-100m', () => {
         console.log('✅ Safe 100m — badge rouge caché');
         clearTimeout(warningTimer100);
         document.getElementById('danger-badge-100').classList.remove('show-badge');
