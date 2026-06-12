@@ -26,7 +26,7 @@ function showBadge100(data) {
 }
 
 function showBadge5k(data) {
-  const badge    = document.getElementById('danger-badge');
+  const badge    = document.getElementById('danger-badge-5k');
   const distText = document.getElementById('badge-distance');
 
   let direction = '📍 قريب منك';

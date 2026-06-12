@@ -5,53 +5,87 @@ body {
 }
 
 html, body { height: 100%; margin: 0; font-family: Arial, sans-serif; }
-      #map { height: 100%; width: 100%; }
+#map { height: 100%; width: 100%; }
 
-      #accuracy-badge {
-        position: fixed; top: 12px; right: 12px; z-index: 9999;
-        background: rgba(0,0,0,0.75); color: white;
-        padding: 8px 14px; border-radius: 20px; font-size: 13px;
-        display: flex; align-items: center; gap: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-      }
-      #accuracy-dot {
-        width: 10px; height: 10px; border-radius: 50%;
-        background: gray; flex-shrink: 0;
-      }
+#accuracy-badge {
+  position: fixed; top: 12px; right: 12px; z-index: 9999;
+  background: rgba(0,0,0,0.75); color: white;
+  padding: 8px 14px; border-radius: 20px; font-size: 13px;
+  display: flex; align-items: center; gap: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+#accuracy-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: gray; flex-shrink: 0;
+}
 
-      #start-btn {
-        position: fixed; bottom: 24px; left: 50%;
-        transform: translateX(-50%);
-        z-index: 9999; background: #22c55e; color: white;
-        border: none; border-radius: 30px;
-        padding: 14px 32px; font-size: 16px; font-weight: bold;
-        cursor: pointer; box-shadow: 0 4px 15px rgba(34,197,94,0.5);
-        transition: opacity 0.4s, transform 0.4s;
-      }
-      #start-btn.hidden {
-        opacity: 0; pointer-events: none;
-        transform: translateX(-50%) scale(0.8);
-      }
+#start-btn {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999; background: #22c55e; color: white;
+  border: none; border-radius: 30px;
+  padding: 14px 32px; font-size: 16px; font-weight: bold;
+  cursor: pointer; box-shadow: 0 4px 15px rgba(34,197,94,0.5);
+  transition: opacity 0.4s, transform 0.4s;
+}
+#start-btn.hidden {
+  opacity: 0; pointer-events: none;
+  transform: translateX(-50%) scale(0.8);
+}
 
-      #danger-badge {
-        position: fixed; top: 50%; left: 50%;
-        transform: translate(-50%, -50%) scale(0.8);
-        background: linear-gradient(135deg, #ff416c, #ff4b2b);
-        color: white; padding: 20px 30px; border-radius: 15px;
-        box-shadow: 0 15px 30px rgba(255,0,0,0.4);
-        z-index: 9999; display: flex; align-items: center; gap: 15px;
-        opacity: 0; visibility: hidden;
-        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        direction: rtl; min-width: 280px; line-height: 1.8;
-      }
-      #danger-badge.show-badge {
-        opacity: 1; visibility: visible;
-        transform: translate(-50%, -50%) scale(1);
-      }
-      .badge-icon { font-size: 45px; animation: pulse-icon 1s infinite alternate; }
-      .badge-text h3 { margin: 0 0 5px; font-size: 24px; font-weight: bold; }
-      .badge-text p  { margin: 0; font-size: 15px; }
-      @keyframes pulse-icon {
-        from { transform: scale(1); }
-        to   { transform: scale(1.2); }
-      }
+#danger-badge-100 {
+  position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+  color: white; padding: 20px 30px; border-radius: 15px;
+  box-shadow: 0 15px 30px rgba(255,0,0,0.4);
+  z-index: 9999; display: flex; align-items: center; gap: 15px;
+  opacity: 0; visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  direction: rtl; min-width: 280px; line-height: 1.8;
+}
+#danger-badge-100.show-badge {
+  opacity: 1; visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+.badge-icon { font-size: 45px; animation: pulse-icon 1s infinite alternate; }
+.badge-text h3 { margin: 0 0 5px; font-size: 24px; font-weight: bold; }
+.badge-text p  { margin: 0; font-size: 15px; }
+@keyframes pulse-icon {
+  from { transform: scale(1); }
+  to   { transform: scale(1.2); }
+}
+
+      /* ── DANGER BADGE 5KM ─────────────────────────────────── */
+#danger-badge-5k {
+  position: fixed; top: 20%; left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white; padding: 14px 24px; border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(245,158,11,0.4);
+  z-index: 9998; display: flex; align-items: center; gap: 12px;
+  opacity: 0; visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  direction: rtl; min-width: 240px; line-height: 1.8;
+}
+
+#danger-badge-5k.show-badge {
+  opacity: 1; visibility: visible;
+  transform: translateX(-50%) scale(1);
+}
+
+#danger-badge-5k .badge-icon {
+  font-size: 30px;
+  animation: pulse-icon 1s infinite alternate;
+}
+
+#danger-badge-5k .badge-text h3 {
+  margin: 0 0 5px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#danger-badge-5k .badge-text p {
+  margin: 0;
+  font-size: 13px;
+}

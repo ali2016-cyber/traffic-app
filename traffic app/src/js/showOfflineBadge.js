@@ -1,5 +1,5 @@
 function showOfflineBadge(distanceMeters, minutesAgo) {
-  const badge    = document.getElementById('danger-badge');
+  const badge    = document.getElementById('danger-badge-5k');
   const distText = document.getElementById('badge-distance');
 
   distText.innerHTML = `
