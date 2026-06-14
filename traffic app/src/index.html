@@ -28,6 +28,7 @@
     <div id="map"></div>
 
     <div id="danger-badge-100">
+      <button class="badge-close" onclick="closeBadge100()">✕</button>
       <div class="badge-icon">⚠️</div>
       <div class="badge-text">
         <h3>انتباه! خطر اصطدام</h3>
@@ -38,6 +39,7 @@
 
         <!-- Badge 5km — orange, plus petit, avertissement -->
     <div id="danger-badge-5k">
+      <button class="badge-close" onclick="closeBadge5k()">✕</button>
       <div class="badge-icon">🔔</div>
       <div class="badge-text">
         <h3>تنبيه! مركبة قريبة</h3>
@@ -98,6 +100,8 @@
       let myLat            = null;
       let myLng            = null;
       let myCurrentSpeed   = null;
+      let badge100Muted = false;
+      let badge5kMuted  = false;
 
       const FALLBACK_LAT   = 18.0858;
       const FALLBACK_LNG   = -15.9785;
@@ -192,7 +196,14 @@
 
       
          
-     
+        // request offline warnings on every connection (including reconnections)
+        if (myLat !== null) {
+          socket.emit('requestOfflineWarnings', {
+            lat: myLat,
+            lng: myLng
+          });
+        }
+        
         if (!trackingStarted) {
           trackingStarted = true;
           startTracking();

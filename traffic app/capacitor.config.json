@@ -1,6 +1,6 @@
 {
   
-  "appId": "com.your.app",
+  "appId": "com.example.app",
   "appName": "Traffic App",
   "webDir": "src",
   "bundledWebRuntime": false,
@@ -15,6 +15,13 @@
   "plugins": {
     "SplashScreen": {
       "launchAutoHide": false
+    },
+    "BackgroundGeolocation": {
+      "backgroundMessage": "التطبيق يتابع موقعك في الخلفية",
+      "backgroundTitle": "نظام تنبيه المرور",
+      "requestPermissions": true,
+      "stale": false,
+      "distanceFilter": 0
     }
   }
 }

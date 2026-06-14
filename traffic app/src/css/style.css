@@ -43,6 +43,7 @@ html, body { height: 100%; margin: 0; font-family: Arial, sans-serif; }
   opacity: 0; visibility: hidden;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   direction: rtl; min-width: 280px; line-height: 1.8;
+  position: relative;
 }
 #danger-badge-100.show-badge {
   opacity: 1; visibility: visible;
@@ -67,6 +68,7 @@ html, body { height: 100%; margin: 0; font-family: Arial, sans-serif; }
   opacity: 0; visibility: hidden;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   direction: rtl; min-width: 240px; line-height: 1.8;
+  position: relative;  
 }
 
 #danger-badge-5k.show-badge {
@@ -88,4 +90,27 @@ html, body { height: 100%; margin: 0; font-family: Arial, sans-serif; }
 #danger-badge-5k .badge-text p {
   margin: 0;
   font-size: 13px;
+}
+
+/* ── CLOSE BUTTON ─────────────────────────────────── */
+.badge-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: white;
+  font-size: 16px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.badge-close:hover {
+  background: rgba(255,255,255,0.4);
 }
