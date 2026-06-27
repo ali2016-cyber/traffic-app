@@ -2,6 +2,10 @@
 function sendPosition(lat, lng, speed = 0) {
   if (socketReady) {
     socket.emit('positionUpdate', { id: userId, lat, lng, speed });
+    socket.emit('requestOfflineWarnings', {   // ← هذا السطر ضروري
+      lat: myLat,
+      lng: myLng
+    });
   } else {
     setTimeout(() => sendPosition(lat, lng, speed), 1000);
   }

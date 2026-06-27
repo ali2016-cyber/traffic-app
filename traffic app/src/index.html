@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
-    <title>Awesome Capacitor App</title>
+    <title></title>
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
@@ -19,19 +19,120 @@
   </head>
 
   <body>
+   <!-- ═══════════════════════════════════════════════════════ -->
+<!--  WELCOME SCREEN —                         -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="welcome-screen">
+  <div class="welcome-container">
+        <!-- ═══════════════════════════════════════════════════════ -->
+    <!--  TOP BAR: Language + About Us                           -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="welcome-top-bar">
+      <button class="top-btn" onclick="openAbout()">
+        <span class="about-title">عن التطبيق</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="16" x2="12" y2="12"/>
+          <line x1="12" y1="8" x2="12.01" y2="8"/>
+        </svg>
+      </button>
+      
+      <button class="lang-btn" id="lang-btn">
+        <span id="lang-text" style="color: rgb(38, 121, 246);">Pulaar</span>
+        
+      </button>
+    </div>
 
+    <!-- العنوان -->
+    <h1 class="welcome-title">نظام التنبيه المروري</h1>
+    <p class="welcome-description">
+      تنبيه فوري عند الاقتراب من مركبة أخرى على الطريق
+    </p>
+   <!-- <img src="../src/traffic_alert_logo.png" alt="" height="260px" width="260px">-->
+
+    
+
+    <!-- الزر -->
+    <button id="enter-btn" onclick="enterApp()">
+     إفتح الخريطة
+    </button>
+
+    <!-- رسالة Bon Voyage -->
+    <div class="bon-voyage">
+      <span class="bon-voyage-emoji">👋</span>
+      <span class="bon-voyage-text">سفر سعيد</span>
+    </div>
+    <!-- نص سفلي -->
+     <p></p>
+    <p class="welcome-footer">
+      تأكد من تفعيل خدمة GPS والاتصال بالإنترنت
+    </p>
+    <p id="update-infos" style="color: red;">سيتم اضافة اللغة الوولفية و اللغةالسونيكية قريباإن شاء الله</p> <!-- ici on va metre la text qui dit qu'on va ajouter des nouveau langues tres proch inshallah-->
+ 
+        <!-- ═══════════════════════════════════════════════════════ -->
+    <!--  ABOUT US MODAL                                         -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div id="about-modal" class="about-overlay" onclick="closeAbout(event)">
+      <div class="about-card" onclick="event.stopPropagation()">
+        
+        <div class="about-header">
+          <h2 class="about-title">عن التطبيق</h2>
+          <button class="about-close" onclick="closeAbout()">✕</button>
+        </div>
+
+        <p class="about-description">
+          نظام تنبيه فوري يحذرك عند الاقتراب من مركبة أخرى على الطريق.
+          صُمم خصيصاً للطرق الموريتانية حيث ضعف تغطية الشبكة.
+        </p>
+
+        <div class="about-features">
+          <div class="about-feature-card">
+            <div class="about-feature-icon">📍</div>
+            <div class="about-feature-info">
+              <strong id="Live-Tracking-title">تتبع مباشر</strong>
+              <span id="Live-Tracking-text">موقعك الحالي بدقة GPS</span>
+            </div>
+          </div>
+
+          <div class="about-feature-card">
+            <div class="about-feature-icon">⚠️</div>
+            <div class="about-feature-info">
+              <strong id="imediat-alert-title">تنبيه فوري</strong>
+              <span id="imediat-alert-text">عند الاقتراب أقل من 100 متر + تنبيه احترازي على بعد 5km</span>
+            </div>
+          </div>
+
+          <div class="about-feature-card">
+            <div class="about-feature-icon">📡</div>
+            <div class="about-feature-info">
+              <strong id="work-background-title">يعمل في الخلفية</strong>
+              <span id="work-background-text">حتى مع إغلاق الشاشة</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+   <!-- ═══════════════════════════════════════════════════════ -->
+  <!--  MAIN APP (Hidden until welcome screen is dismissed)    -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div id="app-content" style="display: none;">
+<!-- The accuracy badge -->
     <div id="accuracy-badge">
       <div id="accuracy-dot"></div>
       <span id="accuracy-text">⏳ جارٍ الاتصال...</span>
     </div>
-
+<!-- The map container -->
     <div id="map"></div>
-
+<!-- The 100m badge -->
     <div id="danger-badge-100">
       <button class="badge-close" onclick="closeBadge100()">✕</button>
       <div class="badge-icon">⚠️</div>
       <div class="badge-text">
-        <h3>انتباه! خطر اصطدام</h3>
+        <h3 id="colision-alert">انتباه! خطر اصطدام</h3>
         <p id="badge-distance-100">المسافة: -- متر</p>
 
       </div>
@@ -42,10 +143,11 @@
       <button class="badge-close" onclick="closeBadge5k()">✕</button>
       <div class="badge-icon">🔔</div>
       <div class="badge-text">
-        <h3>تنبيه! مركبة قريبة</h3>
+        <h3 id="car-close">تنبيه! مركبة قريبة</h3>
         <p id="badge-distance">المسافة: -- متر</p>
       </div>
     </div>
+    </div> <!-- close app-content -->
 
     <script src="leaflet/leaflet.js"></script>
     <script src="https://cdn.socket.io/4.8.3/socket.io.min.js"></script>
@@ -60,8 +162,26 @@
     <script src="js/Gps&Tracking.js"></script>
     <script src="js/showOfflineBadge.js"></script>
     <script>
+      // ── WELCOME SCREEN ─────────────────────────────────────
+function enterApp() {
+  const welcome = document.getElementById('welcome-screen');
+  const app = document.getElementById('app-content');
+  
+  // Fade out welcome screen
+  welcome.classList.add('fade-out');
+  
+  // After animation, hide welcome and show app
+  setTimeout(() => {
+    welcome.style.display = 'none';
+    app.style.display = 'block';
+    
+    // Initialize map after it becomes visible (fixes Leaflet rendering)
+    map.invalidateSize();
+  }, 500); // matches the CSS animation duration
+}
+      console.log("above the plugin");
       
-      const { SplashScreen } = Capacitor.Plugins;
+     const { SplashScreen } = Capacitor.Plugins;
       window.addEventListener('DOMContentLoaded', async () => {
         await SplashScreen.hide();
       });
@@ -102,24 +222,28 @@
       let myCurrentSpeed   = null;
       let badge100Muted = false;
       let badge5kMuted  = false;
-
       const FALLBACK_LAT   = 18.0858;
       const FALLBACK_LNG   = -15.9785;
+      let currentLang = "ar"; // 'ar' or 'pr'
+      console.log("lang-btn has taken");
 
 
       socket.on('disconnect', () => {
         socketReady = false;
         console.warn('⚠️ Disconnected');
-        updateBadge();
+        console.log("currentLang is ", currentLang);
+        
+        updateBadge(currentLang);
       });
 
       socket.on('connect_error', (error) => {
         socketReady = false;
         console.error('❌ Socket.IO Error:', error);
-        updateBadge();
+        updateBadge(currentLang);
       });
 
       socket.on('update', (users) => {
+        updateBadge(currentLang);
         console.log('📍 Snapshot:', users.length, 'users');
         const activeIds = new Set(users.map(u => u.id));
 
@@ -150,21 +274,23 @@
       // warning 100m → badge rouge urgent
       socket.on('warning', (data) => {
         console.warn('🚨 WARNING 100m — distance:', data.distance, 'm');
-        showBadge100(data);
+        showBadge100(data, currentLang);
       });
 
       // warning 5km → badge orange doux
       socket.on('warning-5k', (data) => {
         console.warn('🔔 WARNING 5km — distance:', data.distance, 'm');
-        showBadge5k(data);
+        showBadge5k(data, currentLang);
       });
 
       socket.on('offline-warning', (offlineUsers) => {
+        console.log("the offline event is working");
+        
         offlineUsers.forEach(user => {
           const minutesAgo = Math.round((Date.now() - user.timestamp) / 60000);
           const dist = getDistance(myLat, myLng, user.lat, user.lng);
           
-            showOfflineBadge(dist, minutesAgo);
+            showOfflineBadge(dist, minutesAgo, currentLang);
           
         });
       });
@@ -186,13 +312,13 @@
         document.getElementById('danger-badge-100').classList.remove('show-badge');
         document.getElementById('danger-badge-5k').classList.remove('show-badge');
       });
-
-
     
       socket.on('connect', () => {
         socketReady = true;
         console.log('✅ Connected | userId:', userId);
-        updateBadge();
+        updateBadge(currentLang);
+        console.log("currentLang is ",currentLang);
+        
 
       
          
@@ -210,7 +336,123 @@
           
         }
       });
+      
+function getDistance(lat1, lon1, lat2, lon2) {
+  const R = 6371000;
+  const toRad = d => (d * Math.PI) / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(a));
+}
 
+
+
+// ── ABOUT US MODAL ─────────────────────────────────────
+function openAbout() {
+  document.getElementById('about-modal').classList.add('show');
+}
+
+function closeAbout(event) {
+  // If called from overlay click, check it's the overlay
+  if (event && event.target !== document.getElementById('about-modal')) return;
+  document.getElementById('about-modal').classList.remove('show');
+}
+
+// ── LANGUAGE SWITCH ────────────────────────────────────
+console.log("none of them has taken");
+  const langText = document.getElementById('lang-text');
+  console.log("lang-text has taken");
+  const langBtn = document.getElementById('lang-btn');
+  console.log("lang-btn has taken");
+  
+  langBtn.addEventListener("click", () => {
+    console.log("lag button pressed ");
+    
+  if (langText.textContent === 'العربية') {
+    langText.textContent = 'Pulaar';
+    langText.style.color = '#1565C0';
+    currentLang = "ar";
+    
+    screenLanguage(currentLang);
+    
+  } else {
+    langText.textContent = 'العربية';
+    langText.style.color = '#2679F6';
+    currentLang = "pr";
+    screenLanguage(currentLang)
+    
+  }
+  })
+  
+  // Here you can add logic to translate the page
+  // translatePage(currentLang);
+
+function screenLanguage(currentLang){
+  let aboutTitle = document.querySelectorAll('.about-title');
+  let welcomeTitle = document.querySelector('.welcome-title');
+  let WelcomeDescription = document.querySelector('.welcome-description');
+  let aboutDescription = document.querySelector('.about-description');
+  let LiveTrackingTitle = document.getElementById("Live-Tracking-title");
+  let LiveTrackingText = document.getElementById("Live-Tracking-text");
+  let imediatAlertTitle = document.getElementById("imediat-alert-title");
+  let imediatAlertText = document.getElementById("imediat-alert-text");
+  let workBackgroundTitle = document.getElementById("work-background-title");
+  let workBackgroundText = document.getElementById("work-background-text");
+  let enterBtn = document.getElementById("enter-btn");
+  let bonVoyageText = document.querySelector(".bon-voyage-text");
+  let welcomeFooter = document.querySelector(".welcome-footer");
+  let accuracyText = document.getElementById("accuracy-text");
+  let updateInfos = document.getElementById("update-infos");
+  
+   //console.log('currentLang:', currentLang);
+  if (currentLang === "ar"){
+    for (let i = 0; i < aboutTitle.length; i++) {
+      aboutTitle[i].textContent = "عن التطبيق";
+    }
+    welcomeTitle.textContent = "نظام التنبيه المروري";
+    WelcomeDescription.textContent = "تنبيه فوري عند الاقتراب من مركبة أخرى على الطريق";
+    aboutDescription.textContent = "نظام تنبيه فوري يحذرك عند الاقتراب من مركبة أخرى على الطريق. صُمم خصيصاً للطرق الموريتانية حيث ضعف تغطية الشبكة."; 
+    LiveTrackingTitle.textContent = "تتبع مباشر";
+    LiveTrackingText.textContent = "موقعك الحالي بدقة GPS"; 
+    imediatAlertTitle.textContent = "تنبيه فوري";
+    imediatAlertText.textContent = "عند الاقتراب أقل من 100 متر + تنبيه احترازي على بعد 5km";
+    workBackgroundTitle.textContent = "يعمل في الخلفية";
+    workBackgroundText.textContent = "حتى مع إغلاق الشاشة";
+    enterBtn.textContent = "إذهب إلى الخريطة";
+    bonVoyageText.textContent = "سفر سعيد";
+    welcomeFooter.textContent = "تأكد من تفعيل خدمة GPS والاتصال بالإنترنت";
+    accuracyText.textContent = "⏳ جارٍ الاتصال...";
+    updateInfos.textContent = "سيتم اضافة اللغة الوولفية و اللغةالسونيكية قريباإن شاء الله";
+    updateInfos.style.color = "red";
+
+   
+  }else if(currentLang === "pr"){
+    for (let i = 0; i < aboutTitle.length; i++) {
+      aboutTitle[i].textContent = "Baɗte aplikasiyon oo";
+    }
+    welcomeTitle.textContent = "Sisteem jeertinooji laawol";
+    WelcomeDescription.textContent = "Jeertinol kisa nde ɓatti-ɗaa oto goɗɗo e laawol";
+    aboutDescription.textContent = "Sisteem jeertinol kisa jeertinoowo ma nde ɓatti-ɗaa oto goɗɗo e laawol. Ɗum tafaa ko haa teeŋti ngam laabi Muritani, ɗo rezo alaa doole.";
+    LiveTrackingTitle.textContent = "Rewindaade ɗoon e ɗoon";
+    LiveTrackingText.textContent = "Nokku maa jooni oo e laaɓal GPS";
+    imediatAlertTitle.textContent = "Jeertinol kisa";
+    imediatAlertText.textContent = "Nde ɓatti-ɗaa nder 100 m + Jeertinol reentaade e woɗɗaaku 5 km";
+    workBackgroundTitle.textContent = "Ina liggoo e caggal";
+    workBackgroundText.textContent = "Hay so ekeran oo maɓɓiima";
+    enterBtn.textContent = "Yah e kartal";
+    bonVoyageText.textContent = "Yahdu jam";
+    welcomeFooter.textContent = "Ƴeew so a huɓɓii GPS e internet maa";
+    accuracyText.textContent = "⏳ Jokkondiral e laawol...";
+    updateInfos.textContent = "Ɗemɗe Wolof e Sooninke maa ɓeydee ko ɓooyaani, so Alla jaɓii";
+    updateInfos.style.color = "red";
+   
+    
+
+  }
+}
     </script>
   </body>
 </html>

@@ -1,20 +1,36 @@
-function showBadge100(data) {
+function showBadge100(data, currentLang) {
   if (badge100Muted) return;
   const badge    = document.getElementById('danger-badge-100');
   const distText = document.getElementById('badge-distance-100');
-
-  let direction = '📍 قريب منك';
+  const colisionAlert = document.getElementById('colision-alert');
+  if(currentLang === "ar"){
+    let direction = '📍 قريب منك';
+  } else if(currentLang === "pr"){
+    let direction = '📍 Ko ɓadii ma';
+  }
+  
   if (myLat !== null && data.otherLat) {
     const bearing = getBearing(myLat, myLng, data.otherLat, data.otherLng);
     direction = getRelativeDirection(myHeading, bearing);
   }
-
-  distText.innerHTML = `
+  if (currentLang === "ar") {
+    colisionAlert.textContent = "انتباه! خطر اصطدام";
+    distText.innerHTML = `
     📏 المسافة: <b>${Math.round(data.distance)} متر</b><br/>
     ${direction}<br/>
     🚗 سرعتك: <b>${formatSpeed(myCurrentSpeed)}</b><br/>
     🚙 سرعته: <b>${formatSpeed(data.otherSpeed)}</b>
   `;
+  } else if(currentLang === "pr"){
+    colisionAlert.textContent = "Reento! Kulol fokkondiral";
+    distText.innerHTML = `
+  📏 Woɗɗaaku: <b>${Math.round(data.distance)} m</b><br/>
+  ${direction}<br/>
+  🚗 Jaawgol maa: <b>${formatSpeed(myCurrentSpeed)}</b><br/>
+  🚙 Jaawgol makko: <b>${formatSpeed(data.otherSpeed)}</b>
+`;
+  }
+  
 
   badge.classList.add('show-badge');
   playAlarm();  // alarme urgente
@@ -26,29 +42,55 @@ function showBadge100(data) {
   }, 3500);
 }
 
-function showBadge5k(data) {
-  if (badge5kMuted) return;   // ← don't show if muted
+function showBadge5k(data, currentLang) {
+  if (badge5kMuted) return;
 
   const badge    = document.getElementById('danger-badge-5k');
   const distText = document.getElementById('badge-distance');
+  const carClose = document.getElementById("car-close");
 
-  let direction = '📍 قريب منك';
+  if(currentLang === "ar"){
+    
+    let direction = '📍 قريب منك';
+  } else if(currentLang === "pr"){
+    let direction = '📍 Ko ɓadii ma';
+  }
   if (myLat !== null && data.otherLat) {
     const bearing = getBearing(myLat, myLng, data.otherLat, data.otherLng);
     direction = getRelativeDirection(myHeading, bearing);
   }
 
+  //Show meters or km with decimal
+  if(currentLang === "ar"){
+    carClose.textContent = "تنبيه! مركبة قريبة";
+    const distDisplay = data.distance < 1000 
+    ? `${Math.round(data.distance)} متر`
+    : `${(data.distance / 1000).toFixed(1)} كم`;
+
   distText.innerHTML = `
-    📏 المسافة: <b>${Math.round(data.distance / 1000, 1)} كم</b><br/>
+    📏 المسافة: <b>${distDisplay}</b><br/>
     ${direction}<br/>
     🚗 سرعتك: <b>${formatSpeed(myCurrentSpeed)}</b><br/>
     🚙 سرعته: <b>${formatSpeed(data.otherSpeed)}</b>
   `;
+  } else if(currentLang === "pr"){
+    carClose.textContent = "Jeertingo! Oto ina ɓadii";
+    const distDisplay = data.distance < 1000 
+    ? `${Math.round(data.distance)} m`
+    : `${(data.distance / 1000).toFixed(1)} km`;
+
+    distText.innerHTML = `
+      📏 Woɗɗaaku: <b>${distDisplay}</b><br/>
+      ${direction}<br/>
+      🚗 Jaawgol maa: <b>${formatSpeed(myCurrentSpeed)}</b><br/>
+      🚙 Jaawgol makko: <b>${formatSpeed(data.otherSpeed)}</b>
+    `;
+  }
+  
 
   badge.classList.add('show-badge');
-  playAlarm_5k();  // alarme douce
+  playAlarm_5k();
 
-  // auto-hide après 3.5s
   clearTimeout(warningTimer5k);
   warningTimer5k = setTimeout(() => {
     badge.classList.remove('show-badge');
